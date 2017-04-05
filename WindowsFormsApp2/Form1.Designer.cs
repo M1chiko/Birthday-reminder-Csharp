@@ -128,6 +128,7 @@
             this.osobyListBox.Name = "osobyListBox";
             this.osobyListBox.Size = new System.Drawing.Size(120, 199);
             this.osobyListBox.TabIndex = 8;
+            this.osobyListBox.SelectedIndexChanged += new System.EventHandler(this.osobyListBox_SelectedIndexChanged);
             // 
             // monthCalendar1
             // 
@@ -145,6 +146,7 @@
             this.pridatButton.TabIndex = 10;
             this.pridatButton.Text = "Přidat";
             this.pridatButton.UseVisualStyleBackColor = true;
+            this.pridatButton.Click += new System.EventHandler(this.pridatButton_Click);
             // 
             // odebratButton
             // 
@@ -155,6 +157,7 @@
             this.odebratButton.TabIndex = 11;
             this.odebratButton.Text = "Odebrat";
             this.odebratButton.UseVisualStyleBackColor = true;
+            this.odebratButton.Click += new System.EventHandler(this.odebratButton_Click);
             // 
             // PrehledForm
             // 

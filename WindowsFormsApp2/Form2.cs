@@ -12,9 +12,25 @@ namespace WindowsFormsApp2
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        private SpravceOsob spravceOsob;
+
+        public Form2(SpravceOsob spravceOsob)
         {
             InitializeComponent();
+            this.spravceOsob = spravceOsob;
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                spravceOsob.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: narozeninyDateTimePicker.Value);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
