@@ -13,20 +13,30 @@ namespace WindowsFormsApp2
     public partial class PrehledForm : Form
     {
         private SpravceOsob spravceOsob = new SpravceOsob();
+        private Databaze databaze;
+        
 
         public PrehledForm()
         {
             InitializeComponent();
-
-            dnesLabel.Text = DateTime.Now.ToLongDateString();
+            databaze = new Databaze("osoby.csv");
             osobyListBox.DataSource = spravceOsob.Osoby;
+            dnesLabel.Text = DateTime.Now.ToLongDateString();
             this.ObnovNejblizsi();
         }
 
         private void pridatButton_Click(object sender, EventArgs e)
         {
-            Form2 osobaForm = new Form2(spravceOsob);
-            osobaForm.ShowDialog();
+            try
+            {
+                osobyListBox.DataSource = spravceOsob.Osoby;
+                spravceOsob.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value);
+                databaze.PridejOsobu(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
             this.ObnovNejblizsi();
         }
 
@@ -34,6 +44,7 @@ namespace WindowsFormsApp2
         {
             if (osobyListBox.SelectedItem != null)
             {
+                osobyListBox.DataSource = spravceOsob.Osoby;
                 spravceOsob.Odeber((Osoba)osobyListBox.SelectedItem);
                 this.ObnovNejblizsi();
             }
@@ -60,7 +71,35 @@ namespace WindowsFormsApp2
                 Osoba vybrana = (Osoba)osobyListBox.SelectedItem;
                 narozeninyLabel.Text = vybrana.Narozeniny.ToLongDateString();
                 vekLabel.Text = vybrana.SpoctiVek().ToString();
-                monthCalendar1.SelectionStart = vybrana.Narozeniny;
+            }
+        }
+
+        private void ulozitButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                databaze.Uloz();
+            }
+            catch
+            {
+                MessageBox.Show("Databázi se nepodařilo uložit, zkontrolujte přístupová práva k souboru.", "chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void nacistButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                databaze.Nacti();
+                osobyListBox.DataSource = null;
+                osobyListBox.Items.Clear();
+                osobyListBox.Items.AddRange(databaze.VratVsechny());
+                this.ObnovNejblizsi();
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show("Datábázi se nepodařilo načíst, soubor pravděpodobně neexistuje.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

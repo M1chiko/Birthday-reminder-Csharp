@@ -37,9 +37,16 @@
             this.narozeninyLabel = new System.Windows.Forms.Label();
             this.vekLabel = new System.Windows.Forms.Label();
             this.osobyListBox = new System.Windows.Forms.ListBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.pridatButton = new System.Windows.Forms.Button();
             this.odebratButton = new System.Windows.Forms.Button();
+            this.ulozitButton = new System.Windows.Forms.Button();
+            this.nacistButton = new System.Windows.Forms.Button();
+            this.datumNarozeniDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.datumNarozeniLabel = new System.Windows.Forms.Label();
+            this.jmenoLabel = new System.Windows.Forms.Label();
+            this.jmenoTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -82,7 +89,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(173, 75);
+            this.label5.Location = new System.Drawing.Point(182, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 4;
@@ -92,7 +99,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(173, 99);
+            this.label6.Location = new System.Drawing.Point(182, 99);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 5;
@@ -102,7 +109,7 @@
             // 
             this.narozeninyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.narozeninyLabel.AutoSize = true;
-            this.narozeninyLabel.Location = new System.Drawing.Point(242, 75);
+            this.narozeninyLabel.Location = new System.Drawing.Point(258, 84);
             this.narozeninyLabel.Name = "narozeninyLabel";
             this.narozeninyLabel.Size = new System.Drawing.Size(35, 13);
             this.narozeninyLabel.TabIndex = 6;
@@ -112,7 +119,7 @@
             // 
             this.vekLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.vekLabel.AutoSize = true;
-            this.vekLabel.Location = new System.Drawing.Point(242, 99);
+            this.vekLabel.Location = new System.Drawing.Point(258, 99);
             this.vekLabel.Name = "vekLabel";
             this.vekLabel.Size = new System.Drawing.Size(35, 13);
             this.vekLabel.TabIndex = 7;
@@ -126,21 +133,14 @@
             this.osobyListBox.FormattingEnabled = true;
             this.osobyListBox.Location = new System.Drawing.Point(12, 84);
             this.osobyListBox.Name = "osobyListBox";
-            this.osobyListBox.Size = new System.Drawing.Size(120, 199);
+            this.osobyListBox.Size = new System.Drawing.Size(156, 199);
             this.osobyListBox.TabIndex = 8;
             this.osobyListBox.SelectedIndexChanged += new System.EventHandler(this.osobyListBox_SelectedIndexChanged);
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.monthCalendar1.Location = new System.Drawing.Point(170, 121);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 9;
             // 
             // pridatButton
             // 
             this.pridatButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.pridatButton.Location = new System.Drawing.Point(38, 303);
+            this.pridatButton.Location = new System.Drawing.Point(340, 284);
             this.pridatButton.Name = "pridatButton";
             this.pridatButton.Size = new System.Drawing.Size(75, 23);
             this.pridatButton.TabIndex = 10;
@@ -151,7 +151,7 @@
             // odebratButton
             // 
             this.odebratButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.odebratButton.Location = new System.Drawing.Point(211, 303);
+            this.odebratButton.Location = new System.Drawing.Point(438, 284);
             this.odebratButton.Name = "odebratButton";
             this.odebratButton.Size = new System.Drawing.Size(75, 23);
             this.odebratButton.TabIndex = 11;
@@ -159,14 +159,83 @@
             this.odebratButton.UseVisualStyleBackColor = true;
             this.odebratButton.Click += new System.EventHandler(this.odebratButton_Click);
             // 
+            // ulozitButton
+            // 
+            this.ulozitButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ulozitButton.Location = new System.Drawing.Point(12, 291);
+            this.ulozitButton.Name = "ulozitButton";
+            this.ulozitButton.Size = new System.Drawing.Size(75, 23);
+            this.ulozitButton.TabIndex = 12;
+            this.ulozitButton.Text = "Uložit";
+            this.ulozitButton.UseVisualStyleBackColor = true;
+            this.ulozitButton.Click += new System.EventHandler(this.ulozitButton_Click);
+            // 
+            // nacistButton
+            // 
+            this.nacistButton.Location = new System.Drawing.Point(93, 291);
+            this.nacistButton.Name = "nacistButton";
+            this.nacistButton.Size = new System.Drawing.Size(75, 23);
+            this.nacistButton.TabIndex = 13;
+            this.nacistButton.Text = "Načíst";
+            this.nacistButton.UseVisualStyleBackColor = true;
+            this.nacistButton.Click += new System.EventHandler(this.nacistButton_Click);
+            // 
+            // datumNarozeniDateTimePicker
+            // 
+            this.datumNarozeniDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.datumNarozeniDateTimePicker.Location = new System.Drawing.Point(6, 110);
+            this.datumNarozeniDateTimePicker.Name = "datumNarozeniDateTimePicker";
+            this.datumNarozeniDateTimePicker.Size = new System.Drawing.Size(173, 20);
+            this.datumNarozeniDateTimePicker.TabIndex = 14;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.jmenoTextBox);
+            this.groupBox1.Controls.Add(this.jmenoLabel);
+            this.groupBox1.Controls.Add(this.datumNarozeniLabel);
+            this.groupBox1.Controls.Add(this.datumNarozeniDateTimePicker);
+            this.groupBox1.Location = new System.Drawing.Point(334, 71);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(185, 202);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Přidat osobu";
+            // 
+            // datumNarozeniLabel
+            // 
+            this.datumNarozeniLabel.AutoSize = true;
+            this.datumNarozeniLabel.Location = new System.Drawing.Point(6, 94);
+            this.datumNarozeniLabel.Name = "datumNarozeniLabel";
+            this.datumNarozeniLabel.Size = new System.Drawing.Size(88, 13);
+            this.datumNarozeniLabel.TabIndex = 15;
+            this.datumNarozeniLabel.Text = "Datum Narození:";
+            // 
+            // jmenoLabel
+            // 
+            this.jmenoLabel.AutoSize = true;
+            this.jmenoLabel.Location = new System.Drawing.Point(6, 28);
+            this.jmenoLabel.Name = "jmenoLabel";
+            this.jmenoLabel.Size = new System.Drawing.Size(62, 13);
+            this.jmenoLabel.TabIndex = 16;
+            this.jmenoLabel.Text = "Celé jméno:";
+            // 
+            // jmenoTextBox
+            // 
+            this.jmenoTextBox.Location = new System.Drawing.Point(6, 44);
+            this.jmenoTextBox.Name = "jmenoTextBox";
+            this.jmenoTextBox.Size = new System.Drawing.Size(173, 20);
+            this.jmenoTextBox.TabIndex = 17;
+            // 
             // PrehledForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 348);
+            this.ClientSize = new System.Drawing.Size(564, 348);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.nacistButton);
+            this.Controls.Add(this.ulozitButton);
             this.Controls.Add(this.odebratButton);
             this.Controls.Add(this.pridatButton);
-            this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.osobyListBox);
             this.Controls.Add(this.vekLabel);
             this.Controls.Add(this.narozeninyLabel);
@@ -179,6 +248,8 @@
             this.Name = "PrehledForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Narozeniny";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,9 +266,15 @@
         private System.Windows.Forms.Label narozeninyLabel;
         private System.Windows.Forms.Label vekLabel;
         private System.Windows.Forms.ListBox osobyListBox;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Button pridatButton;
         private System.Windows.Forms.Button odebratButton;
+        private System.Windows.Forms.Button ulozitButton;
+        private System.Windows.Forms.Button nacistButton;
+        private System.Windows.Forms.DateTimePicker datumNarozeniDateTimePicker;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label jmenoLabel;
+        private System.Windows.Forms.Label datumNarozeniLabel;
+        private System.Windows.Forms.TextBox jmenoTextBox;
     }
 }
 
