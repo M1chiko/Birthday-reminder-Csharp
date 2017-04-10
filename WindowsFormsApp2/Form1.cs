@@ -36,8 +36,8 @@ namespace WindowsFormsApp2
             try
             {
                 osobyListBox.DataSource = spravceOsob.Osoby;
-                spravceOsob.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value);
-                databaze.PridejOsobu(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value);
+                spravceOsob.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
+                databaze.PridejOsobu(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace WindowsFormsApp2
                 Osoba vybrana = (Osoba)osobyListBox.SelectedItem;
                 narozeninyLabel.Text = vybrana.Narozeniny.ToLongDateString();
                 vekLabel.Text = vybrana.SpoctiVek().ToString();
-
+                prijemceTextBox.Text = vybrana.Email;
             }
         }
 

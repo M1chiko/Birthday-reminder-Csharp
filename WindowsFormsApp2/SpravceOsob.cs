@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
@@ -16,13 +17,15 @@ namespace WindowsFormsApp2
             Osoby = new BindingList<Osoba>();
         }
 
-        public void Pridej (string jmeno, DateTime datumNarozeni)
+        public void Pridej (string jmeno, DateTime datumNarozeni, string email)
         {
             if (jmeno.Length < 3)
                 throw new ArgumentException("Jméno je příliš krátké");
             if (datumNarozeni.Date > DateTime.Today)
                 throw new ArgumentException("Datum narození nesmí být v budoucnosti");
-            Osoba osoba = new Osoba(jmeno, datumNarozeni.Date);
+            if (IsValidEmail(email) == false)
+                throw new ArgumentException("Emailová adresa není zadaná ve správném formátu");
+            Osoba osoba = new Osoba(jmeno, datumNarozeni.Date, email);
             Osoby.Add(osoba);
         }
 
@@ -35,6 +38,19 @@ namespace WindowsFormsApp2
         {
             var serazeneOsoby = Osoby.OrderBy(o => o.ZbyvaDni());
             return serazeneOsoby.First();
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

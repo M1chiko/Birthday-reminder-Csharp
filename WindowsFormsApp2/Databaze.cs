@@ -18,9 +18,9 @@ namespace WindowsFormsApp2
             this.soubor = soubor;
         }
 
-        public void PridejOsobu(string jmeno, DateTime datumNarozeni)
+        public void PridejOsobu(string jmeno, DateTime datumNarozeni, string email)
         {
-            Osoba o = new Osoba(jmeno: jmeno, narozeniny: datumNarozeni);
+            Osoba o = new Osoba(jmeno: jmeno, narozeniny: datumNarozeni, email: email);
             osoby.Add(o);
         }
 
@@ -38,7 +38,7 @@ namespace WindowsFormsApp2
                 foreach (Osoba o in osoby)
                 {
                     // vytvoření pole hodnot
-                    string[] hodnoty = { o.Jmeno, o.Narozeniny.ToShortDateString() };
+                    string[] hodnoty = { o.Jmeno, o.Narozeniny.ToShortDateString(), o.Email};
                     // vytvoření řádku
                     string radek = String.Join(";", hodnoty);
                     // zápis řádku
@@ -63,8 +63,9 @@ namespace WindowsFormsApp2
                     string[] rozdeleno = s.Split(';');
                     string jmeno = rozdeleno[0];
                     DateTime narozeniny = DateTime.Parse(rozdeleno[1]);
+                    string email = rozdeleno[2]; 
                     // přidá uživatele s danými hodnotami
-                    PridejOsobu(jmeno, narozeniny);
+                    PridejOsobu(jmeno, narozeniny, email);
                 }
             }
         }

@@ -49,6 +49,8 @@
             this.odesliMailButton = new System.Windows.Forms.Button();
             this.prijemceTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.emailTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -186,13 +188,15 @@
             // datumNarozeniDateTimePicker
             // 
             this.datumNarozeniDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.datumNarozeniDateTimePicker.Location = new System.Drawing.Point(6, 112);
+            this.datumNarozeniDateTimePicker.Location = new System.Drawing.Point(6, 91);
             this.datumNarozeniDateTimePicker.Name = "datumNarozeniDateTimePicker";
             this.datumNarozeniDateTimePicker.Size = new System.Drawing.Size(173, 20);
             this.datumNarozeniDateTimePicker.TabIndex = 14;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.emailTextBox);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.jmenoTextBox);
             this.groupBox1.Controls.Add(this.jmenoLabel);
             this.groupBox1.Controls.Add(this.datumNarozeniLabel);
@@ -223,7 +227,7 @@
             // datumNarozeniLabel
             // 
             this.datumNarozeniLabel.AutoSize = true;
-            this.datumNarozeniLabel.Location = new System.Drawing.Point(6, 94);
+            this.datumNarozeniLabel.Location = new System.Drawing.Point(6, 75);
             this.datumNarozeniLabel.Name = "datumNarozeniLabel";
             this.datumNarozeniLabel.Size = new System.Drawing.Size(88, 13);
             this.datumNarozeniLabel.TabIndex = 15;
@@ -254,6 +258,22 @@
             this.label3.Size = new System.Drawing.Size(135, 13);
             this.label3.TabIndex = 18;
             this.label3.Text = "Odeslat gratulaci na E-mail:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 123);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "E-mail:";
+            // 
+            // emailTextBox
+            // 
+            this.emailTextBox.Location = new System.Drawing.Point(6, 139);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(173, 20);
+            this.emailTextBox.TabIndex = 19;
             // 
             // PrehledForm
             // 
@@ -310,6 +330,8 @@
         private System.Windows.Forms.Button odesliMailButton;
         private System.Windows.Forms.TextBox prijemceTextBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox emailTextBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 

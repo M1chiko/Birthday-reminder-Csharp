@@ -10,11 +10,13 @@ namespace WindowsFormsApp2
     {
         public string Jmeno { get; set; }
         public DateTime Narozeniny { get; set; }
+        public string Email { get; set; }
 
-        public Osoba(string jmeno, DateTime narozeniny)
+        public Osoba(string jmeno, DateTime narozeniny, string email)
         {
             Jmeno = jmeno;
             Narozeniny = narozeniny;
+            Email = email;
         }
 
         public int SpoctiVek()
