@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +25,10 @@ namespace WindowsFormsApp2
             osobyListBox.DataSource = spravceOsob.Osoby;
             dnesLabel.Text = DateTime.Now.ToLongDateString();
             this.ObnovNejblizsi();
+            dnesLabel.Text = "";
+            nejblizsiLabel.Text = "";
+            narozeninyLabel.Text = "";
+            vekLabel.Text = "";
         }
 
         private void pridatButton_Click(object sender, EventArgs e)
@@ -71,6 +77,7 @@ namespace WindowsFormsApp2
                 Osoba vybrana = (Osoba)osobyListBox.SelectedItem;
                 narozeninyLabel.Text = vybrana.Narozeniny.ToLongDateString();
                 vekLabel.Text = vybrana.SpoctiVek().ToString();
+
             }
         }
 
@@ -101,6 +108,33 @@ namespace WindowsFormsApp2
                 // MessageBox.Show("Datábázi se nepodařilo načíst, soubor pravděpodobně neexistuje.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.Message, "chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public void sendEmail()
+        {
+            try
+            {
+                var mail = new MailMessage();
+                var smtpServer = new SmtpClient("smtp.gmail.com", 587);
+                mail.From = new MailAddress("martinlearncsharp@gmail.com", "Martin Novotný");
+                mail.To.Add(prijemceTextBox.Text);
+                mail.Subject = "Všechno nejlepší k narozeninám";
+                mail.Body = "Ahoj, přeji ti vše nejlepší k narozeninám";
+                //smtpServer.UseDefaultCredentials = false;
+                smtpServer.Credentials = new NetworkCredential("martinlearncsharp@gmail.com", "YY__YSWAQ");
+                smtpServer.EnableSsl = true;
+                smtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Console.ReadLine();
+            }
+        }
+
+            private void button1_Click(object sender, EventArgs e)
+        {
+            sendEmail();
         }
     }
 }
