@@ -9,24 +9,23 @@ namespace WindowsFormsApp2
 {
     class Databaze
     {
-        private List<Osoba> osoby;
+        private SpravceOsob spravceOsob = new SpravceOsob();
         private string soubor;
+        
 
         public Databaze(string soubor)
         {
-            osoby = new List<Osoba>();
             this.soubor = soubor;
         }
 
         public void PridejOsobu(string jmeno, DateTime datumNarozeni, string email)
         {
-            Osoba o = new Osoba(jmeno: jmeno, narozeniny: datumNarozeni, email: email);
-            osoby.Add(o);
+            spravceOsob.Pridej(jmeno, datumNarozeni, email);
         }
 
         public Osoba[] VratVsechny()
         {
-            return osoby.ToArray();
+            return spravceOsob.Osoby.ToArray();
         }
 
         public void Uloz()
@@ -35,7 +34,7 @@ namespace WindowsFormsApp2
             using (StreamWriter sw = new StreamWriter(soubor))
             {
                 // projetí osob
-                foreach (Osoba o in osoby)
+                foreach (Osoba o in spravceOsob.Osoby)
                 {
                     // vytvoření pole hodnot
                     string[] hodnoty = { o.Jmeno, o.Narozeniny.ToShortDateString(), o.Email};
@@ -51,7 +50,7 @@ namespace WindowsFormsApp2
 
         public void Nacti()
         {
-            osoby.Clear();
+            spravceOsob.Osoby.Clear();
             // Otevře soubor pro čtení
             using (StreamReader sr = new StreamReader(soubor))
             {

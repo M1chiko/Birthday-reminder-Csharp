@@ -23,7 +23,7 @@ namespace WindowsFormsApp2
                 throw new ArgumentException("Jméno je příliš krátké");
             if (datumNarozeni.Date > DateTime.Today)
                 throw new ArgumentException("Datum narození nesmí být v budoucnosti");
-            if (IsValidEmail(email) == false)
+            if (PlatnyEmail(email) == false)
                 throw new ArgumentException("Emailová adresa není zadaná ve správném formátu");
             Osoba osoba = new Osoba(jmeno, datumNarozeni.Date, email);
             Osoby.Add(osoba);
@@ -40,7 +40,7 @@ namespace WindowsFormsApp2
             return serazeneOsoby.First();
         }
 
-        public bool IsValidEmail(string email)
+        public bool PlatnyEmail(string email)
         {
             try
             {

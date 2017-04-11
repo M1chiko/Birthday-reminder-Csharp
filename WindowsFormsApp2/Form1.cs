@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
 
 namespace WindowsFormsApp2
 {
     public partial class PrehledForm : Form
     {
-        private SpravceOsob spravceOsob = new SpravceOsob();
+        public SpravceOsob spravceOsob = new SpravceOsob();
         private Databaze databaze;
-        
 
         public PrehledForm()
         {
@@ -24,8 +17,7 @@ namespace WindowsFormsApp2
             databaze = new Databaze("osoby.csv");
             osobyListBox.DataSource = spravceOsob.Osoby;
             dnesLabel.Text = DateTime.Now.ToLongDateString();
-            this.ObnovNejblizsi();
-            dnesLabel.Text = "";
+            ObnovNejblizsi();
             nejblizsiLabel.Text = "";
             narozeninyLabel.Text = "";
             vekLabel.Text = "";
@@ -43,7 +35,7 @@ namespace WindowsFormsApp2
             {
                 MessageBox.Show(ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            this.ObnovNejblizsi();
+            ObnovNejblizsi();
         }
 
         private void odebratButton_Click(object sender, EventArgs e)
@@ -52,7 +44,7 @@ namespace WindowsFormsApp2
             {
                 osobyListBox.DataSource = spravceOsob.Osoby;
                 spravceOsob.Odeber((Osoba)osobyListBox.SelectedItem);
-                this.ObnovNejblizsi();
+                ObnovNejblizsi();
             }
         }
 
@@ -75,10 +67,11 @@ namespace WindowsFormsApp2
             if (osobyListBox.SelectedItem != null)
             {
                 Osoba vybrana = (Osoba)osobyListBox.SelectedItem;
-                narozeninyLabel.Text = vybrana.Narozeniny.ToLongDateString();
+                narozeninyLabel.Text = vybrana.Narozeniny.ToShortDateString();
                 vekLabel.Text = vybrana.SpoctiVek().ToString();
                 prijemceTextBox.Text = vybrana.Email;
             }
+            ObnovNejblizsi();
         }
 
         private void ulozitButton_Click(object sender, EventArgs e)
@@ -101,16 +94,16 @@ namespace WindowsFormsApp2
                 osobyListBox.DataSource = null;
                 osobyListBox.Items.Clear();
                 osobyListBox.Items.AddRange(databaze.VratVsechny());
-                this.ObnovNejblizsi();
             }
             catch (Exception ex)
             {
                 // MessageBox.Show("Datábázi se nepodařilo načíst, soubor pravděpodobně neexistuje.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show(ex.Message, "chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            //ObnovNejblizsi();
         }
 
-        public void sendEmail()
+        public void OdesliEmail()
         {
             try
             {
@@ -124,17 +117,26 @@ namespace WindowsFormsApp2
                 smtpServer.Credentials = new NetworkCredential("martinlearncsharp@gmail.com", "YY__YSWAQ");
                 smtpServer.EnableSsl = true;
                 smtpServer.Send(mail);
+                ZobrazitNotifikaci("Přání k narozeninám odesláno", "E-mail s přáním k" +
+                    " narozeninám byl odeslán vybranému příjemci");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                Console.ReadLine();
+                MessageBox.Show(ex.Message, "chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
             private void button1_Click(object sender, EventArgs e)
         {
-            sendEmail();
+            OdesliEmail();
+        }
+
+        public void ZobrazitNotifikaci(string nadpis, string zprava)
+        {
+            PopupNotifier upozorneni = new PopupNotifier();
+            upozorneni.TitleText = nadpis;
+            upozorneni.ContentText = zprava;
+            upozorneni.Popup();
         }
     }
 }
