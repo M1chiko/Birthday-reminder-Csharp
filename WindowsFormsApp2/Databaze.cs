@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,23 +10,56 @@ namespace WindowsFormsApp2
 {
     class Databaze
     {
-        private SpravceOsob spravceOsob = new SpravceOsob();
         private string soubor;
+        public BindingList<Osoba> Osoby { get; set; }
         
 
         public Databaze(string soubor)
         {
+            Osoby = new BindingList<Osoba> ();
             this.soubor = soubor;
         }
 
-        public void PridejOsobu(string jmeno, DateTime datumNarozeni, string email)
+        public void Pridej(string jmeno, DateTime datumNarozeni, string email)
         {
-            spravceOsob.Pridej(jmeno, datumNarozeni, email);
+            if (jmeno.Length < 3)
+                throw new ArgumentException("Jméno je příliš krátké");
+            if (datumNarozeni.Date > DateTime.Today)
+                throw new ArgumentException("Datum narození nesmí být v budoucnosti");
+            if (PlatnyEmail(email) == false)
+                throw new ArgumentException("Emailová adresa není zadaná ve správném formátu");
+            Osoba osoba = new Osoba(jmeno, datumNarozeni.Date, email);
+            Osoby.Add(osoba);
         }
+
+        public void Odeber(Osoba osoba)
+        {
+            Osoby.Remove(osoba);
+        }
+
+        public Osoba NajdiNejblizsi()
+        {
+            var serazeneOsoby = Osoby.OrderBy(o => o.ZbyvaDni());
+            return serazeneOsoby.First();
+        }
+
+        public bool PlatnyEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         public Osoba[] VratVsechny()
         {
-            return spravceOsob.Osoby.ToArray();
+            return Osoby.ToArray();
         }
 
         public void Uloz()
@@ -34,7 +68,7 @@ namespace WindowsFormsApp2
             using (StreamWriter sw = new StreamWriter(soubor))
             {
                 // projetí osob
-                foreach (Osoba o in spravceOsob.Osoby)
+                foreach (Osoba o in Osoby)
                 {
                     // vytvoření pole hodnot
                     string[] hodnoty = { o.Jmeno, o.Narozeniny.ToShortDateString(), o.Email};
@@ -50,7 +84,7 @@ namespace WindowsFormsApp2
 
         public void Nacti()
         {
-            spravceOsob.Osoby.Clear();
+            Osoby.Clear();
             // Otevře soubor pro čtení
             using (StreamReader sr = new StreamReader(soubor))
             {
@@ -64,7 +98,7 @@ namespace WindowsFormsApp2
                     DateTime narozeniny = DateTime.Parse(rozdeleno[1]);
                     string email = rozdeleno[2]; 
                     // přidá uživatele s danými hodnotami
-                    PridejOsobu(jmeno, narozeniny, email);
+                    Pridej(jmeno, narozeniny, email);
                 }
             }
         }

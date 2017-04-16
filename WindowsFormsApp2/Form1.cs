@@ -8,14 +8,14 @@ namespace WindowsFormsApp2
 {
     public partial class PrehledForm : Form
     {
-        public SpravceOsob spravceOsob = new SpravceOsob();
+        //public databaze databaze = new databaze();
         private Databaze databaze;
 
         public PrehledForm()
         {
             InitializeComponent();
             databaze = new Databaze("osoby.csv");
-            osobyListBox.DataSource = spravceOsob.Osoby;
+            osobyListBox.DataSource = databaze.Osoby;
             dnesLabel.Text = DateTime.Now.ToLongDateString();
             ObnovNejblizsi();
             nejblizsiLabel.Text = "";
@@ -27,9 +27,9 @@ namespace WindowsFormsApp2
         {
             try
             {
-                osobyListBox.DataSource = spravceOsob.Osoby;
-                spravceOsob.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
-                databaze.PridejOsobu(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
+                osobyListBox.DataSource = databaze.Osoby;
+                databaze.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
+                databaze.Pridej(jmeno: jmenoTextBox.Text, datumNarozeni: datumNarozeniDateTimePicker.Value, email: emailTextBox.Text);
             }
             catch (Exception ex)
             {
@@ -42,17 +42,17 @@ namespace WindowsFormsApp2
         {
             if (osobyListBox.SelectedItem != null)
             {
-                osobyListBox.DataSource = spravceOsob.Osoby;
-                spravceOsob.Odeber((Osoba)osobyListBox.SelectedItem);
+                osobyListBox.DataSource = databaze.Osoby;
+                databaze.Odeber((Osoba)osobyListBox.SelectedItem);
                 ObnovNejblizsi();
             }
         }
 
         private void ObnovNejblizsi()
         {
-            if (spravceOsob.Osoby.Count > 0)
+            if (databaze.Osoby.Count > 0)
             {
-                Osoba nejblizsi = spravceOsob.NajdiNejblizsi();
+                Osoba nejblizsi = databaze.NajdiNejblizsi();
                 int vek = nejblizsi.SpoctiVek();
                 if (DateTime.Today != nejblizsi.Narozeniny)
                     vek++;
